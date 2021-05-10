@@ -1,0 +1,35 @@
+{
+  "name": "bookmark",
+  "version": "0.0.1",
+  "description": "bookmark using express and mysql",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon ./bin/server",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ksks2211/Bookmark-Express.git"
+  },
+  "keywords": [
+    "bookmark",
+    "express",
+    "mysql"
+  ],
+  "author": "yoon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ksks2211/Bookmark-Express/issues"
+  },
+  "homepage": "https://github.com/ksks2211/Bookmark-Express#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "debug": "^4.3.1",
+    "dotenv": "^9.0.1",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

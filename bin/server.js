@@ -4,12 +4,16 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('untitled:server');
-var http = require('http');
-var dotenv = require('dotenv')
 
+var dotenv = require('dotenv')
 dotenv.config();
+
+
+var app = require('../app');
+var debug = require('debug')('worker:server');
+var http = require('http');
+
+
 /**
  * Get port from environment and store in Express.
  */
@@ -28,7 +32,9 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port,()=>{
+  console.log(app.get('port'),'port is listening...')
+});
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -89,5 +95,6 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
+    
   debug('Listening on ' + bind);
 }

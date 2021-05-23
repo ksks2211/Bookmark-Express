@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-
+const moment = require('moment');
 module.exports = class Url extends Sequelize.Model{
     static init(sequelize){
         return super.init({
@@ -13,13 +13,15 @@ module.exports = class Url extends Sequelize.Model{
             },
             visit:{
                 type:Sequelize.INTEGER.UNSIGNED,
-                allowNull:false,
-                default:0,
+                defaultValue:0,
             },
             visitedAt:{
                 type:Sequelize.DATE,
                 allowNull:false,
-                defaultValue: Sequelize.NOW
+                defaultValue: Sequelize.NOW,
+                get: function(){
+                    return moment(this.getDataValue('visitedAt')).format('YYYY-MM-DD')
+                }
             },
             hostname:{
                 type:Sequelize.STRING(100),
@@ -32,7 +34,7 @@ module.exports = class Url extends Sequelize.Model{
             fixed:{
                 type:Sequelize.ENUM('yes','no'),
                 allowNull:false,
-                default:'no'
+                defaultValue:'no'
             }
         },{
             sequelize,
@@ -46,6 +48,7 @@ module.exports = class Url extends Sequelize.Model{
         })
     }
     static associate(db){
-        db.Url.belongsTo(db.Category,{targetKey:'id'});
+        db.Url.belongsTo(db.Category,{targetKey:'id',onUpdate: 'cascade',
+        onDelete: 'set null'});// "CategoryId"
     }
 }

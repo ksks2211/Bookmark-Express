@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<section class="in">
+    <h2>IN Section</h2>
+    <form id="Cform">
+      <legend><h3>Register Category</h3></legend>
+      <fieldset>
+        <legend>Category</legend>
+        <label>
+          Title<input type="text" id="Ctitle" name="Ctitle"/>
+        </label>
+        <input type="submit" value="Submit" id="Cbtn">
+      </fieldset>
+    </form>
+</section>
+{% endblock %}
+
+{% block script %}
+<script src="./javascripts/category.js"></script>
+{% endblock %}

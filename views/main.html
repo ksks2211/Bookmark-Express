@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+<div>
+  <button><a href="#" class="nav-btn">최근방문</a></button>
+  <button><a href="#" class="nav-btn">자주방문</a></button>
+  <button><a href="#" class="nav-btn">검색</a></button>
+  <button><a href="#" class="nav-btn">Like</a></button>
+</div>
+<section class="out">
+    <h2>OUT Section</h2>
+    <table>
+      <caption>Bookmark</caption>
+      <colgroup>
+        <col span="5">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Like</th>
+          <th>Title</th>
+          <th>Last Visit</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+</section>
+{% endblock %}
+
+
+{% block script %}
+<script src="./javascripts/main.js"></script>
+{% endblock %}

@@ -26,6 +26,7 @@ module.exports = class Category extends Sequelize.Model{
     }
 
     static associate(db){
-        db.Category.hasMany(db.Url,{ sourceKey:'id'});
+        db.Category.hasMany(db.Url,{ sourceKey:'id',onUpdate: 'cascade',
+        onDelete: 'set null'});
     }
 }

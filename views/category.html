@@ -1,8 +1,9 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+
 <section class="in">
-    <h2>IN Section</h2>
+    <h2>Register Section</h2>
     <form id="Cform">
       <legend><h3>Register Category</h3></legend>
       <fieldset>
@@ -13,6 +14,26 @@
         <input type="submit" value="Submit" id="Cbtn">
       </fieldset>
     </form>
+</section>
+
+<section class="out">
+  <h2>Display Category</h2>
+  <table>
+    <caption>Categories</caption>
+    <colgroup>
+      <col span="2">
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>CreatedAt</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
 </section>
 {% endblock %}
 

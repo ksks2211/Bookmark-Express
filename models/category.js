@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-
+const moment = require('moment');
 module.exports = class Category extends Sequelize.Model{
     static init(sequelize){
         return super.init({
@@ -11,6 +11,9 @@ module.exports = class Category extends Sequelize.Model{
                 type: Sequelize.DATE,
                 allowNull:false,
                 defaultValue : Sequelize.NOW,
+                get: function(){
+                    return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD')
+                }
             }
 
         },{
@@ -26,7 +29,6 @@ module.exports = class Category extends Sequelize.Model{
     }
 
     static associate(db){
-        db.Category.hasMany(db.Url,{ sourceKey:'id',onUpdate: 'cascade',
-        onDelete: 'set null'});
+        db.Category.hasMany(db.Url,{ sourceKey:'id',onUpdate: 'cascade',onDelete: 'set null'});
     }
 }

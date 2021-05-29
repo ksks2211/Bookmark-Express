@@ -48,7 +48,6 @@ module.exports = class Url extends Sequelize.Model{
         })
     }
     static associate(db){
-        db.Url.belongsTo(db.Category,{targetKey:'id',onUpdate: 'cascade',
-        onDelete: 'set null'});// "CategoryId"
+        db.Url.belongsTo(db.Category,{targetKey:'id',onUpdate: 'cascade',onDelete: 'set null'});// "CategoryId"
     }
 }

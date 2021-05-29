@@ -34,7 +34,7 @@ router.get('/',async(req,res,next)=>{
 // 카테고리 제거, delete
 router.delete('/:categoryID',async(req,res,next)=>{
     try{
-        const result = await Url.destroy({where:{id:req.params.categoryID}})
+        const result = await Category.destroy({where:{id:req.params.categoryID}})
         res.json(result)
     }catch(err){
         console.error(err)
@@ -42,12 +42,12 @@ router.delete('/:categoryID',async(req,res,next)=>{
     }
 })
 
-router.patch("/:categoryID",async(req,res,next)=>{
+router.patch("/:categoryId",async(req,res,next)=>{
     try{
-        const result = await Url.update({
+        const result = await Category.update({
             title:req.body.title
         },{
-            where : {id:req.params.categoryID}
+            where : {id:req.params.categoryId}
         })
         res.json(result)
     }catch(err){

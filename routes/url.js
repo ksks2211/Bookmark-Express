@@ -3,7 +3,7 @@ const router = Router();
 const moment = require('moment')
 const {Category,Url} = require('../models');
 const {URL} = require('url');
-const { EDESTADDRREQ } = require('constants');
+
 
 Url.prototype.dateFormat = (date)=>{
   moment(date).format('YYYY-MM-DD')
@@ -11,7 +11,13 @@ Url.prototype.dateFormat = (date)=>{
 // url 목록
 router.get('/',async(req,res,next)=>{
     try{
-      const urls =await Url.findAll({})
+      const urls =await Url.findAll({
+        include:[{
+          model:Category,
+          attributes:['title']
+        }]
+      })
+      console.log(urls);
       res.json(urls)
     }catch(err){
       console.error(err)
@@ -50,7 +56,7 @@ router.post('/',async(req,res,next)=>{
 
 router.delete('/:urlID',async(req,res,next)=>{
     try{
-        const result = await Url.delete({where:{id:req.params.urlID}})
+        const result = await Url.destroy({where:{id:req.params.urlID}})
         res.json(result)
     }catch(err){
         console.error(err)
@@ -61,7 +67,7 @@ router.delete('/:urlID',async(req,res,next)=>{
 
 router.patch('/:urlID',async(req,res,next)=>{
     try{
-        const changed = req.query
+        const changed = req.body
         const result = await Url.update(changed,{
             where : {id:req.params.urlID}
         })
@@ -70,5 +76,24 @@ router.patch('/:urlID',async(req,res,next)=>{
         console.error(err)
         next(err)
     }
+})
+
+
+
+router.get('/:urlID',async(req,res,next)=>{
+  try{
+    const urls =await Url.findOne({
+      where:{id:req.params.urlID},
+      include:[{
+        model:Category,
+        attributes:['title']
+      }]
+    })
+    console.log(urls);
+    res.json(urls)
+  }catch(err){
+    console.error(err)
+    next(err);
+  }
 })
 module.exports = router

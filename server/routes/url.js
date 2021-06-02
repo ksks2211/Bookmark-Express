@@ -10,7 +10,7 @@ Url.prototype.dateFormat = (date)=>{
 // url 목록
 router.get('/',async(req,res,next)=>{
     try{
-      const offset = req.query.page ? (Number(req.query.page)-1)*5 : 0
+      const offset = req.query.page ? (Number(req.query.page)-1)*10 : 0
       const order = req.query.order ? [[req.query.order,'DESC']] : [['visitedAt','DESC']];
       const fixed = req.query.like ?  'yes' : '';
       const condition = {
@@ -18,7 +18,7 @@ router.get('/',async(req,res,next)=>{
           model:Category,
           attributes:['title']
         }],
-        limit:5,
+        limit:10,
         offset,
         order,
       }

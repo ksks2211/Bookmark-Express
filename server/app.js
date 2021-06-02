@@ -10,7 +10,6 @@ const v1 = require('./routes/v1')
 const app = express();
 app.use(cors())
 app.set('port',process.env.PORT || 3000);
-app.set('view engine','html');
 
 //db connect
 sequelize.sync({force:false})
@@ -32,7 +31,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname,'public')))
 
 
 // middleware - router

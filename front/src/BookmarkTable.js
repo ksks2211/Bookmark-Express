@@ -118,11 +118,11 @@ export default function BookmarkTable({match}){
                             <TableCell component='th' scope="row" onClick={()=>setStar(row.id,row.fixed)}>
                                 {showStar(row.fixed)}
                             </TableCell>
-                            <TableCell align="right" onClick={()=>countUpdate(row.id)}><Button href={row.url} target="_blank">{row.title}</Button></TableCell>
-                            <TableCell align="right" >{row.visitedAt}</TableCell>
-                            <TableCell align="right" ><Link to={`/add/${row.id}`}><IconButton><AddCircleOutlineOutlined/></IconButton></Link></TableCell>
-                            <TableCell align="right" onClick={()=>deleteRow(row.id)}><IconButton><DeleteIcon/></IconButton></TableCell>
-                            <TableCell align="right">{row.Category && row.Category.title}</TableCell>
+                            <TableCell align="center" onClick={()=>countUpdate(row.id)}><Button href={row.url} target="_blank">{row.title}</Button></TableCell>
+                            <TableCell align="center" >{row.visitedAt}</TableCell>
+                            <TableCell align="center" ><Link to={`/add/${row.id}`}><IconButton><AddCircleOutlineOutlined/></IconButton></Link></TableCell>
+                            <TableCell align="center" onClick={()=>deleteRow(row.id)}><IconButton><DeleteIcon/></IconButton></TableCell>
+                            <TableCell align="center">{row.Category && row.Category.title}</TableCell>
                         </TableRow>
                     ))}
                     </TableBody>

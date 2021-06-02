@@ -4,7 +4,7 @@ module.exports = class Url extends Sequelize.Model{
     static init(sequelize){
         return super.init({
             title:{
-                type:Sequelize.STRING(12),
+                type:Sequelize.STRING(30),
                 allowNull:false,
             },
             url:{

@@ -68,17 +68,15 @@ export default function Category(){
         getCat()
     },[])
     const onChange = (e)=>{
-        const ttl = e.currentTarget.elements.title.value.trim()
-        if(ttl){
-            setTitle(ttl);
-        }
+        const ttl = e.currentTarget.elements.title ?  e.currentTarget.elements.title.value : ""
+        setTitle(ttl);
     }
 
     const onSubmit = async(e)=>{
         e.preventDefault()
         try{
-            if(title){
-                const result = await axios.post('http://localhost:3000/v1/category',{title})
+            if(title&&title.trim()){
+                const result = await axios.post('http://localhost:3000/v1/category',{title:title.trim()})
                 if(result.data.warning){
                     alert(result.data.warning)
                 }else{

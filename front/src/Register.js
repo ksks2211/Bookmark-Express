@@ -70,9 +70,9 @@ export default function Register({match}){
 
 
     const onChange=(e)=>{
-        const title = e.currentTarget.elements.title.value.trim();
+        const title = e.currentTarget.elements.title.value;
         const url = e.currentTarget.elements.url.value;
-        const desc = e.currentTarget.elements.description&&e.currentTarget.elements.description.value ?  e.currentTarget.elements.description.value.trim() : ""
+        const desc = e.currentTarget.elements.description&&e.currentTarget.elements.description.value ?  e.currentTarget.elements.description.value : ""
         const categoryId = e.currentTarget.elements.category&&e.currentTarget.elements.category.value ? e.currentTarget.elements.category.value  : ""
         const data={...form}
         data['title']=title
@@ -86,18 +86,23 @@ export default function Register({match}){
     const onSubmit=async (e)=>{
         e.preventDefault();
 
-        
+       
         if(!form.title || !form.url){
             alert("Check Your Form");
         }else{
-            if(!urlId){
-                await axios.post('http://localhost:3000/v1/url',form)
-                alert("Bookmark Registered!")
-                setRedirect(true)
-            }else{
-                await axios.patch(`http://localhost:3000/v1/url/${urlId}`,form)
-                alert("Bookmark Updated!")
-                setRedirect(true)
+
+            try{
+                if(!urlId){
+                    await axios.post('http://localhost:3000/v1/url',form)
+                    alert("Bookmark Registered!")
+                    setRedirect(true)
+                }else{
+                    await axios.patch(`http://localhost:3000/v1/url/${urlId}`,form)
+                    alert("Bookmark Updated!")
+                    setRedirect(true)
+                }
+            }catch(err){
+                console.error(err)
             }
         }
     }

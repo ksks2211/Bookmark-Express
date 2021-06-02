@@ -2,21 +2,15 @@ const express = require('express');
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan');
-const nunjucks = require('nunjucks')
 
-
+const cors = require('cors')
 const {sequelize} = require('./models')
 const indexRouter = require('./routes')
 const v1 = require('./routes/v1')
 const app = express();
-
+app.use(cors())
 app.set('port',process.env.PORT || 3000);
 app.set('view engine','html');
-nunjucks.configure('views',{
-    express:app,
-    watch:true,
-    //autoescape:true
-})
 
 //db connect
 sequelize.sync({force:false})
@@ -33,7 +27,7 @@ sequelize.sync({force:false})
 //middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
-app.use(express.static(path.join(__dirname,'public')))
+app.use('/',express.static(path.join(__dirname,'build')))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));

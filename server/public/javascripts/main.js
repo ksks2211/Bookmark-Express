@@ -29,6 +29,15 @@ function displayUrls(urls){
         anchor.target="_blank"
         anchor.title = url.description || url.url
         anchor.textContent=url.title
+        td.addEventListener('click',(e)=>{
+            const urlID = td.parentNode.dataset.id;
+            try{
+                axios.get(`http://localhost:3000/v1/url/${urlID}/visit`);
+            }catch(err){
+                console.error(err)
+            };
+
+        })
         td.appendChild(anchor)
         tr.appendChild(td)
 
@@ -81,7 +90,16 @@ function displayUrls(urls){
 
 window.onload = async ()=>{
     try{
-        const urls = await axios.get('http://localhost:3000/v1/url')
+        const order = new URL(window.location.href).searchParams.get('order')
+        const like = new URL(window.location.href).searchParams.get('like')
+        let addr = new URL("http://localhost:3000/v1/url")
+        if (order) {
+            addr.searchParams.append('order',order)
+        }
+        if(like){
+            addr.searchParams.append('like',like)
+        }
+        const urls = await axios.get(addr.href);
         if(urls.data){
             displayUrls(urls.data)
         }

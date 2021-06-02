@@ -24,13 +24,13 @@
   "homepage": "https://github.com/ksks2211/Bookmark-Express#readme",
   "dependencies": {
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "debug": "^4.3.1",
     "dotenv": "^9.0.1",
     "express": "^4.17.1",
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
-    "nunjucks": "^3.2.3",
     "sequelize": "^6.6.2",
     "sequelize-cli": "^6.2.0"
   },

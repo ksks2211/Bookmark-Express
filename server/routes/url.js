@@ -1,9 +1,8 @@
 const {Router} = require('express');
 const router = Router();
 const moment = require('moment')
-const {Category,Url} = require('../models');
+const {Category,Url,sequelize} = require('../models');
 const {URL} = require('url');
-
 
 Url.prototype.dateFormat = (date)=>{
   moment(date).format('YYYY-MM-DD')
@@ -11,13 +10,24 @@ Url.prototype.dateFormat = (date)=>{
 // url 목록
 router.get('/',async(req,res,next)=>{
     try{
-      const urls =await Url.findAll({
+      const offset = req.query.page ? (Number(req.query.page)-1)*5 : 0
+      const order = req.query.order ? [[req.query.order,'DESC']] : [['visitedAt','DESC']];
+      const fixed = req.query.like ?  'yes' : '';
+      const condition = {
         include:[{
           model:Category,
           attributes:['title']
-        }]
-      })
-      console.log(urls);
+        }],
+        limit:5,
+        offset,
+        order,
+      }
+      if(fixed){
+        condition['where']={fixed};
+      }
+      console.log(condition)
+
+      const urls =await Url.findAll(condition)
       res.json(urls)
     }catch(err){
       console.error(err)
@@ -46,6 +56,9 @@ router.post('/',async(req,res,next)=>{
       if(req.body.category){
         data['CategoryId']=req.body.category
       }
+
+      console.log(data)
+
       const url = await Url.create(data)
       res.json(url)
     }catch(err){
@@ -79,7 +92,14 @@ router.patch('/:urlID',async(req,res,next)=>{
 })
 
 
-
+router.get('/:urlId/visit',async (req,res,next)=>{
+  try{
+    await sequelize.query(`call touch_procedure(${req.params.urlId})`)
+  }catch(err){
+    console.error(err);
+    next(err);
+  }
+})
 router.get('/:urlID',async(req,res,next)=>{
   try{
     const urls =await Url.findOne({
@@ -96,4 +116,10 @@ router.get('/:urlID',async(req,res,next)=>{
     next(err);
   }
 })
+
+
+
+
+
+
 module.exports = router
